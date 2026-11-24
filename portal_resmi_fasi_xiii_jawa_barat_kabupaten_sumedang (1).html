@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASI XIII Jawa Barat - Kabupaten Sumedang | 19 - 21 Desember 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Amiri (for subtle Islamic accent) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        arabic: ['"Amiri"', 'serif'],
+                    },
+                    colors: {
+                        fasi: {
+                            navy: '#0a2540',
+                            royal: '#1d4ed8',
+                            sky: '#0284c7',
+                            gold: '#eab308',
+                            amber: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Pola Geometris Islami & Sunda Halus Bernuansa Biru Kerajaan & Emas */
+        .islamic-pattern {
+            background-color: #0a2540;
+            background-image: radial-gradient(rgba(250, 204, 21, 0.14) 1px, transparent 1px), radial-gradient(rgba(56, 189, 248, 0.14) 1px, #0a2540 1px);
+            background-size: 36px 36px;
+            background-position: 0 0, 18px 18px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1d4ed8;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-700 selection:text-white">
+
+    <!-- Toast / Notification Box (Pengganti alert) -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-400/50 flex items-center gap-3">
+            <i class="fas fa-check-circle text-amber-400 text-lg"></i>
+            <span id="toast-message" class="text-sm font-medium">Berhasil disalin ke papan klip!</span>
+        </div>
+    </div>
+
+    <!-- Modal Pencarian Cepat (Quick Search) -->
+    <div id="search-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden items-start justify-center pt-16 px-4">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200 animate-fade-in">
+            <div class="p-4 border-b border-slate-100 flex items-center gap-3 bg-blue-50/60">
+                <i class="fas fa-search text-blue-700 text-lg ml-2"></i>
+                <input type="text" id="global-search-input" placeholder="Cari cabang lomba, lokasi venue, wisata, atau kuliner Sumedang..." 
+                       class="w-full bg-transparent border-none focus:outline-none text-slate-800 placeholder-slate-400 text-base py-2">
+                <button onclick="toggleSearchModal()" class="p-2 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-200/50 transition">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            <div id="search-results-container" class="max-h-96 overflow-y-auto p-4 space-y-2">
+                <p class="text-sm text-slate-500 text-center py-6">Ketik kata kunci seperti <strong>"Tartil"</strong>, <strong>"PPS"</strong>, <strong>"Tahu"</strong>, atau <strong>"Jatigede"</strong>...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-blue-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Asli Tanpa Perubahan Sedikitpun -->
+                <a href="#beranda" class="flex items-center gap-3 group">
+                    <div class="bg-white px-2 py-1 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-center shrink-0">
+                        <img src="FASI ke XIII - Logo.jpg" 
+                             alt="Logo Resmi FASI XIII Tingkat Provinsi Jawa Barat" 
+                             class="h-12 sm:h-14 w-auto object-contain">
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-extrabold text-base lg:text-lg tracking-tight text-slate-900">FASI XIII</span>
+                            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 rounded-full border border-amber-300">Jawa Barat</span>
+                        </div>
+                        <p class="text-xs text-blue-700 font-semibold">Kabupaten Sumedang • 19–21 Des 2026</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden lg:flex items-center gap-1">
+                    <a href="#tentang" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">Cabang Lomba</a>
+                    <a href="#jadwal" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">Jadwal</a>
+                    <a href="#venue" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">Lokasi Venue</a>
+                    <a href="#wisata" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">Wisata</a>
+                    <a href="#kuliner" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">Kuliner Kota</a>
+                    <a href="#panduan" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">Panduan Kafilah</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleSearchModal()" aria-label="Pencarian Cepat" class="p-2.5 rounded-xl bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 transition flex items-center gap-2 text-sm font-medium">
+                        <i class="fas fa-search"></i>
+                        <span class="hidden sm:inline text-xs text-slate-500">Cari cepat...</span>
+                    </button>
+                    <a href="#kontak-darurat" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-800 hover:to-sky-700 text-white text-sm font-semibold shadow-sm transition">
+                        <i class="fas fa-headset"></i>
+                        <span>Posko Kafilah</span>
+                    </a>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl text-slate-700 hover:bg-slate-100 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-5 space-y-1 shadow-lg">
+            <a href="#tentang" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Cabang Lomba</a>
+            <a href="#jadwal" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Jadwal Acara</a>
+            <a href="#venue" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Lokasi Venue & Maps</a>
+            <a href="#wisata" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Wisata Sumedang</a>
+            <a href="#kuliner" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Kuliner Wilayah Kota</a>
+            <a href="#panduan" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Panduan & Penginapan</a>
+            <a href="#kontak-darurat" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-bold text-blue-800 bg-blue-50">Posko & Kontak Darurat</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative islamic-pattern text-white overflow-hidden pt-10 pb-20 lg:py-20">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-sky-500/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-amber-400/15 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
+                <!-- Left Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-amber-300/35 backdrop-blur-sm text-amber-300 text-xs sm:text-sm font-semibold">
+                        <i class="fas fa-star text-amber-400"></i>
+                        <span>DPW BKPRMI Jawa Barat × Pemkab Sumedang</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Festival Anak Sholeh Indonesia <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-sky-300">XIII Jawa Barat</span>
+                    </h1>
+
+                    <p class="text-sky-100 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Menyiapkan Generasi Qur'ani Menyongsong Masa Depan Gemilang. Selamat datang seluruh kafilah dari 27 Kabupaten/Kota se-Jawa Barat di <strong class="text-white">Sumedang Puseur Budaya Sunda</strong>!
+                    </p>
+
+                    <!-- Event Key Badges -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-1">
+                        <div class="flex items-center gap-2.5 bg-slate-900/75 border border-sky-700/70 px-4 py-2.5 rounded-2xl">
+                            <i class="fas fa-calendar-alt text-amber-400 text-lg"></i>
+                            <div class="text-left">
+                                <p class="text-[11px] text-sky-300 uppercase font-semibold">Tanggal Pelaksanaan</p>
+                                <p class="text-sm font-bold text-white">19 – 21 Desember 2026</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2.5 bg-slate-900/75 border border-sky-700/70 px-4 py-2.5 rounded-2xl">
+                            <i class="fas fa-map-marker-alt text-sky-400 text-lg"></i>
+                            <div class="text-left">
+                                <p class="text-[11px] text-sky-300 uppercase font-semibold">Tuan Rumah</p>
+                                <p class="text-sm font-bold text-white">Kabupaten Sumedang</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
+                        <a href="#venue" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Peta Lokasi Venue</span>
+                        </a>
+                        <a href="#kuliner" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-sm sm:text-base backdrop-blur-sm transition flex items-center gap-2">
+                            <i class="fas fa-utensils text-amber-300"></i>
+                            <span>Kuliner & Wisata</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Content: Official Logo Showcase & Countdown Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 sm:p-7 shadow-2xl space-y-5">
+                        <!-- Wadah Putih Bersih Agar Logo Asli Tampil 100% Utuh, Tajam & Tanpa Modifikasi -->
+                        <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-md border border-slate-100 flex justify-center items-center">
+                            <img src="FASI ke XIII - Logo.jpg" 
+                                 alt="Logo Resmi FASI XIII Tingkat Provinsi Jawa Barat - Sumedang, 19-21 Desember 2026" 
+                                 class="w-full max-w-[270px] sm:max-w-[300px] h-auto object-contain mx-auto">
+                        </div>
+
+                        <div class="text-center space-y-0.5">
+                            <h2 class="text-base sm:text-lg font-bold text-white">Hitung Mundur Pembukaan FASI XIII</h2>
+                            <p class="text-xs text-sky-200">Pusat Pemerintahan Sumedang (PPS) • 19 Desember 2026</p>
+                        </div>
+
+                        <!-- Countdown Timer Grid -->
+                        <div class="grid grid-cols-4 gap-2 sm:gap-3 text-center" id="countdown-container">
+                            <div class="bg-slate-950/80 border border-amber-400/35 rounded-2xl p-2.5 sm:p-3">
+                                <span id="cd-days" class="block text-xl sm:text-2xl font-extrabold text-amber-400">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-sky-200 font-semibold">Hari</span>
+                            </div>
+                            <div class="bg-slate-950/80 border border-amber-400/35 rounded-2xl p-2.5 sm:p-3">
+                                <span id="cd-hours" class="block text-xl sm:text-2xl font-extrabold text-white">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-sky-200 font-semibold">Jam</span>
+                            </div>
+                            <div class="bg-slate-950/80 border border-amber-400/35 rounded-2xl p-2.5 sm:p-3">
+                                <span id="cd-minutes" class="block text-xl sm:text-2xl font-extrabold text-white">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-sky-200 font-semibold">Menit</span>
+                            </div>
+                            <div class="bg-slate-950/80 border border-amber-400/35 rounded-2xl p-2.5 sm:p-3">
+                                <span id="cd-seconds" class="block text-xl sm:text-2xl font-extrabold text-sky-300">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-sky-200 font-semibold">Detik</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/15 text-center">
+                            <div>
+                                <p class="text-lg sm:text-xl font-extrabold text-amber-300">27</p>
+                                <p class="text-[11px] text-sky-100">Kab/Kota Jabar</p>
+                            </div>
+                            <div class="border-x border-white/15">
+                                <p class="text-lg sm:text-xl font-extrabold text-amber-300">12+</p>
+                                <p class="text-[11px] text-sky-100">Cabang Lomba</p>
+                            </div>
+                            <div>
+                                <p class="text-lg sm:text-xl font-extrabold text-amber-300">3.000+</p>
+                                <p class="text-[11px] text-sky-100">Santri & Kafilah</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Tentang FASI XIII & Cabang Lomba -->
+    <section id="tentang" class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+            <span class="px-3.5 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider">Tentang & Kompetisi</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Cabang Lomba FASI XIII Jawa Barat</h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Ajang evaluasi dan silaturahmi santri Taman Kanak-kanak Al-Qur'an (TKA), Taman Pendidikan Al-Qur'an (TPA), dan Ta'limul Qur'an lil Aulad (TQA) se-Jawa Barat yang diselenggarakan oleh BKPRMI Jawa Barat bersama Pemerintah Kabupaten Sumedang.
+            </p>
+        </div>
+
+        <!-- Filter Kategori Lomba -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8" id="lomba-filters">
+            <button onclick="filterLomba('semua')" class="lomba-tab active px-5 py-2.5 rounded-2xl text-sm font-bold bg-blue-700 text-white shadow-sm transition">
+                Semua Kategori (12)
+            </button>
+            <button onclick="filterLomba('TKA')" class="lomba-tab px-5 py-2.5 rounded-2xl text-sm font-bold bg-white text-slate-700 hover:bg-blue-50 border border-slate-200 transition">
+                TKA (Usia ≤ 7 Thn)
+            </button>
+            <button onclick="filterLomba('TPA')" class="lomba-tab px-5 py-2.5 rounded-2xl text-sm font-bold bg-white text-slate-700 hover:bg-blue-50 border border-slate-200 transition">
+                TPA (Usia ≤ 12 Thn)
+            </button>
+            <button onclick="filterLomba('TQA')" class="lomba-tab px-5 py-2.5 rounded-2xl text-sm font-bold bg-white text-slate-700 hover:bg-blue-50 border border-slate-200 transition">
+                TQA (Usia ≤ 15 Thn)
+            </button>
+        </div>
+
+        <!-- Grid Kartu Cabang Lomba -->
+        <div id="lomba-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Diisi otomatis via JS -->
+        </div>
+    </section>
+
+    <!-- Section 2: Jadwal Acara (Rundown 19 - 21 Desember 2026) -->
+    <section id="jadwal" class="py-16 sm:py-20 bg-slate-900 text-white islamic-pattern">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3 mb-10">
+                <span class="px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold uppercase tracking-wider">Agenda Kegiatan</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold">Jadwal Acara (19 – 21 Desember 2026)</h2>
+                <p class="text-sky-200 text-sm sm:text-base">Rangkaian acara utama FASI XIII Jawa Barat di Kabupaten Sumedang. Jadwal dapat disesuaikan dengan koordinasi Technical Meeting.</p>
+            </div>
+
+            <!-- Day Tabs -->
+            <div class="grid grid-cols-3 gap-2 sm:gap-4 mb-8">
+                <button onclick="selectScheduleDay(1)" id="day-btn-1" class="day-tab p-3 sm:p-4 rounded-2xl bg-amber-400 text-slate-950 font-extrabold text-center shadow-lg transition">
+                    <span class="block text-xs uppercase opacity-80">Hari Pertama</span>
+                    <span class="text-sm sm:text-lg">19 Desember 2026</span>
+                </button>
+                <button onclick="selectScheduleDay(2)" id="day-btn-2" class="day-tab p-3 sm:p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-center border border-white/15 transition">
+                    <span class="block text-xs uppercase text-sky-200">Hari Kedua</span>
+                    <span class="text-sm sm:text-lg">20 Desember 2026</span>
+                </button>
+                <button onclick="selectScheduleDay(3)" id="day-btn-3" class="day-tab p-3 sm:p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-center border border-white/15 transition">
+                    <span class="block text-xs uppercase text-sky-200">Hari Ketiga</span>
+                    <span class="text-sm sm:text-lg">21 Desember 2026</span>
+                </button>
+            </div>
+
+            <!-- Timeline Container -->
+            <div id="schedule-content" class="bg-white text-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+                <!-- Diisi otomatis via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Lokasi Venue & Integrasi Google Maps -->
+    <section id="venue" class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+            <span class="px-3.5 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider">Peta & Titik Lokasi</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Lokasi Venue Utama & Maps</h2>
+            <p class="text-slate-600 text-sm sm:text-base">
+                Seluruh titik venue tersebar strategis di wilayah Kota Sumedang untuk memudahkan mobilitas kafilah. Klik kartu venue untuk melihat pratinjau peta atau buka langsung di aplikasi Google Maps.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <!-- Daftar Venue (Left Column) -->
+            <div class="lg:col-span-6 space-y-4" id="venue-list">
+                <!-- Diisi otomatis via JS -->
+            </div>
+
+            <!-- Interactive Map Frame (Right Column - Sticky on Desktop) -->
+            <div class="lg:col-span-6 lg:sticky lg:top-24 space-y-4">
+                <div class="bg-white rounded-3xl p-4 shadow-xl border border-slate-200">
+                    <div class="flex items-center justify-between mb-3 px-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-700 uppercase tracking-wider">Pratinjau Peta Lokasi</span>
+                            <h3 id="active-map-title" class="font-extrabold text-slate-900 text-base sm:text-lg">Pusat Pemerintahan Sumedang (PPS)</h3>
+                        </div>
+                        <a id="active-map-external" href="https://maps.google.com/?q=-6.8378,107.9213" target="_blank" rel="noopener noreferrer" 
+                           class="px-3.5 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold flex items-center gap-1.5 transition">
+                            <span>Buka App Maps</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 relative">
+                        <iframe id="venue-map-iframe" 
+                                src="https://maps.google.com/maps?q=-6.8378,107.9213&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                class="w-full h-full border-0" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Peta Lokasi Venue FASI XIII Sumedang">
+                        </iframe>
+                    </div>
+                    <div class="mt-3 px-2 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+                        <span id="active-map-address"><i class="fas fa-map-pin text-blue-600 mr-1"></i> Jl. Prabu Gajah Agung No. 9, Situ, Kec. Sumedang Utara</span>
+                        <button onclick="copyActiveCoordinates()" class="text-sky-700 hover:text-sky-900 font-bold underline">
+                            Salin Koordinat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Rekomendasi Tempat Wisata di Kabupaten Sumedang -->
+    <section id="wisata" class="py-16 sm:py-20 bg-gradient-to-b from-sky-50/80 to-slate-50 border-y border-sky-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div class="space-y-2 max-w-2xl">
+                    <span class="px-3.5 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider">Pesona Sumedang</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Rekomendasi Wisata Sumedang</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">
+                        Manfaatkan waktu luang di sela perlombaan untuk menikmati keindahan alam, sejarah Kerajaan Sumedang Larang, dan wisata keluarga.
+                    </p>
+                </div>
+
+                <!-- Filter Kategori Wisata -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterWisata('semua')" class="wisata-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-sky-700 text-white shadow-sm transition">Semua</button>
+                    <button onclick="filterWisata('Alam')" class="wisata-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-sky-50 transition">Wisata Alam</button>
+                    <button onclick="filterWisata('Sejarah')" class="wisata-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-sky-50 transition">Sejarah & Budaya</button>
+                    <button onclick="filterWisata('Keluarga')" class="wisata-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-sky-50 transition">Wisata Keluarga</button>
+                </div>
+            </div>
+
+            <!-- Grid Kartu Wisata -->
+            <div id="wisata-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Diisi otomatis via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Rekomendasi Tempat Makan & Kuliner (Fokus Wilayah Kota Sumedang) -->
+    <section id="kuliner" class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+            <div class="space-y-2 max-w-2xl">
+                <span class="px-3.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider">Kuliner & Oleh-Oleh</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Rekomendasi Tempat Makan di Wilayah Kota</h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Pilihan rumah makan Sunda, sentra Tahu Sumedang legendaris, kuliner khas kota, hingga kafe nyaman yang berjarak dekat dari pusat venue FASI XIII.
+                </p>
+            </div>
+
+            <!-- Filter Kategori Kuliner -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterKuliner('semua')" class="kuliner-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-amber-600 text-white shadow-sm transition">Semua</button>
+                <button onclick="filterKuliner('Tahu')" class="kuliner-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-amber-50 transition">Tahu & Oleh-oleh</button>
+                <button onclick="filterKuliner('Sunda')" class="kuliner-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-amber-50 transition">RM Sunda & Khas</button>
+                <button onclick="filterKuliner('Kafe')" class="kuliner-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-amber-50 transition">Kafe & Nongkrong</button>
+            </div>
+        </div>
+
+        <!-- Grid Kartu Kuliner -->
+        <div id="kuliner-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Diisi otomatis via JS -->
+        </div>
+    </section>
+
+    <!-- Section 6: Panduan Kafilah (Transportasi, Penginapan & Kontak Darurat) -->
+    <section id="panduan" class="py-16 sm:py-20 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            
+            <!-- Sub-bagian: Akses Tol Cisumdawu & Penginapan -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Panduan Akses & Transportasi -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-900">Panduan Akses & Tol Cisumdawu</h3>
+                            <p class="text-xs text-slate-500">Rute tercepat menuju Pusat Kota Sumedang</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-sm text-slate-600">
+                        <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-100">
+                            <h4 class="font-bold text-blue-900 flex items-center gap-2">
+                                <i class="fas fa-car-side text-blue-600"></i> Dari Arah Bandung / Jabodetabek (Via Tol Cipularang - Cisumdawu)
+                            </h4>
+                            <p class="mt-1 text-xs sm:text-sm leading-relaxed">
+                                Masuk Tol Cisumdawu via Cileunyi, lalu keluar di <strong>Gerbang Tol (GT) Sumedang Kota</strong> (sekitar 10 menit ke Pusat Pemerintahan Sumedang & Alun-alun).
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-sky-50/70 border border-sky-100">
+                            <h4 class="font-bold text-sky-900 flex items-center gap-2">
+                                <i class="fas fa-bus text-sky-600"></i> Dari Arah Cirebon / Majalengka / Pantura (Via Tol Cipali - Cisumdawu)
+                            </h4>
+                            <p class="mt-1 text-xs sm:text-sm leading-relaxed">
+                                Masuk Tol Cisumdawu via Junction Dawuan, lanjutkan perjalanan dan keluar di <strong>Gerbang Tol (GT) Sumedang Kota</strong> atau GT Paseh.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-100">
+                            <h4 class="font-bold text-amber-900 flex items-center gap-2">
+                                <i class="fas fa-shuttle-van text-amber-600"></i> Transportasi Lokal di Wilayah Kota
+                            </h4>
+                            <p class="mt-1 text-xs sm:text-sm leading-relaxed">
+                                Tersedia Angkutan Kota (Angkot 01, 02, 04, 05) yang melintasi jalur Jl. Prabu Geusan Ulun, Jl. Mayor Abdurahman, dan PPS, serta layanan ojek/taksi daring.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rekomendasi Penginapan / Hotel di Kota Sumedang -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-900">Info Penginapan & Pemondokan</h3>
+                            <p class="text-xs text-slate-500">Hotel & penginapan strategis di sekitar Kota Sumedang</p>
+                        </div>
+                    </div>
+
+                    <div class="divide-y divide-slate-100">
+                        <div class="py-3.5 flex items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Hotel Hanjuang Hegar</h4>
+                                <p class="text-xs text-slate-500">Jl. Mayor Abdurahman No. 214 • ± 5 menit ke PPS</p>
+                            </div>
+                            <a href="https://maps.google.com/?q=Hotel+Hanjuang+Hegar+Sumedang" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-blue-100 text-blue-800 text-xs font-bold shrink-0">
+                                <i class="fas fa-location-arrow mr-1"></i> Maps
+                            </a>
+                        </div>
+                        <div class="py-3.5 flex items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Hotel Kencana Jaya</h4>
+                                <p class="text-xs text-slate-500">Jl. Pangeran Kornel No. 216 • ± 4 menit ke Alun-alun</p>
+                            </div>
+                            <a href="https://maps.google.com/?q=Hotel+Kencana+Jaya+Sumedang" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-blue-100 text-blue-800 text-xs font-bold shrink-0">
+                                <i class="fas fa-location-arrow mr-1"></i> Maps
+                            </a>
+                        </div>
+                        <div class="py-3.5 flex items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Asrama Haji / Islamic Center Sumedang</h4>
+                                <p class="text-xs text-slate-500">Jl. Kutamaya • Pusat Koordinasi Pemondokan Kafilah</p>
+                            </div>
+                            <a href="https://maps.google.com/?q=Islamic+Center+Sumedang" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-blue-100 text-blue-800 text-xs font-bold shrink-0">
+                                <i class="fas fa-location-arrow mr-1"></i> Maps
+                            </a>
+                        </div>
+                        <div class="py-3.5 flex items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Hotel Puri Khatulistiwa (Area Jatinangor)</h4>
+                                <p class="text-xs text-slate-500">Jl. Raya Jatinangor • Akses langsung Tol Cisumdawu</p>
+                            </div>
+                            <a href="https://maps.google.com/?q=Hotel+Puri+Khatulistiwa+Jatinangor" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-blue-100 text-blue-800 text-xs font-bold shrink-0">
+                                <i class="fas fa-location-arrow mr-1"></i> Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-bagian: Buku Saku & Kontak Darurat -->
+            <div id="kontak-darurat" class="bg-gradient-to-r from-slate-900 via-blue-900 to-sky-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                    <div class="space-y-2 max-w-xl">
+                        <span class="px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold uppercase">Layanan Bantuan 24 Jam</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold">Posko Panitia & Kontak Darurat</h3>
+                        <p class="text-sky-100 text-sm">
+                            Butuh bantuan medis, informasi pemondokan kafilah, atau pengawalan rute? Hubungi posko layanan resmi FASI XIII Kabupaten Sumedang.
+                        </p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full lg:w-auto">
+                        <a href="https://wa.me/6281200001313?text=Assalamualaikum%20Panitia%20FASI%20XIII%20Sumedang,%20kami%20dari%20kafilah..." target="_blank" rel="noopener noreferrer"
+                           class="bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-2xl transition flex flex-col justify-between gap-3">
+                            <div class="flex items-center justify-between">
+                                <i class="fab fa-whatsapp text-2xl text-emerald-300"></i>
+                                <span class="text-[10px] uppercase bg-emerald-500/30 px-2 py-0.5 rounded-full font-bold">LO Kafilah</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-sky-200">Sekretariat Panitia</p>
+                                <p class="font-bold text-sm">0812-0000-1313</p>
+                            </div>
+                        </a>
+
+                        <a href="tel:0261201021" class="bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-2xl transition flex flex-col justify-between gap-3">
+                            <div class="flex items-center justify-between">
+                                <i class="fas fa-hospital text-2xl text-rose-300"></i>
+                                <span class="text-[10px] uppercase bg-rose-500/30 px-2 py-0.5 rounded-full font-bold">Medis / IGD</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-sky-200">RSUD Sumedang</p>
+                                <p class="font-bold text-sm">(0261) 201021</p>
+                            </div>
+                        </a>
+
+                        <a href="tel:110" class="bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-2xl transition flex flex-col justify-between gap-3">
+                            <div class="flex items-center justify-between">
+                                <i class="fas fa-shield-alt text-2xl text-amber-300"></i>
+                                <span class="text-[10px] uppercase bg-amber-500/30 px-2 py-0.5 rounded-full font-bold">Keamanan</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-sky-200">Polres Sumedang</p>
+                                <p class="font-bold text-sm">Call Center 110</p>
+                            </div>
+                        </a>
+
+                        <a href="tel:112" class="bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-2xl transition flex flex-col justify-between gap-3">
+                            <div class="flex items-center justify-between">
+                                <i class="fas fa-phone-volume text-2xl text-sky-300"></i>
+                                <span class="text-[10px] uppercase bg-sky-500/30 px-2 py-0.5 rounded-full font-bold">Darurat</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-sky-200">Sumedang Siaga</p>
+                                <p class="font-bold text-sm">Nomor 112</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-sky-100 pt-14 pb-8 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="bg-white p-2.5 rounded-2xl shadow-md inline-flex items-center justify-center">
+                            <img src="FASI ke XIII - Logo.jpg" 
+                                 alt="Logo Resmi FASI XIII Tingkat Provinsi Jawa Barat" 
+                                 class="h-16 sm:h-20 w-auto object-contain">
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-white text-lg">FASI XIII Jawa Barat</h4>
+                            <p class="text-xs text-amber-300 font-semibold">Sumedang • 19 – 21 Desember 2026</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-300 max-w-md leading-relaxed">
+                        Portal informasi resmi Festival Anak Sholeh Indonesia (FASI) XIII Tingkat Provinsi Jawa Barat. Diselenggarakan oleh DPW BKPRMI Jawa Barat bekerja sama dengan Pemerintah Kabupaten Sumedang dan DPD BKPRMI Kabupaten Sumedang.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="font-bold text-white text-sm uppercase tracking-wider">Navigasi Cepat</h5>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="#tentang" class="hover:text-amber-300 transition">Cabang Lomba (TKA/TPA/TQA)</a></li>
+                        <li><a href="#jadwal" class="hover:text-amber-300 transition">Jadwal 19–21 Desember 2026</a></li>
+                        <li><a href="#venue" class="hover:text-amber-300 transition">Peta Venue Utama</a></li>
+                        <li><a href="#wisata" class="hover:text-amber-300 transition">Destinasi Wisata Sumedang</a></li>
+                        <li><a href="#kuliner" class="hover:text-amber-300 transition">Kuliner Wilayah Kota</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="font-bold text-white text-sm uppercase tracking-wider">Sekretariat Tuan Rumah</h5>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Gedung Islamic Center Sumedang & Pusat Pemerintahan Sumedang (PPS)<br>
+                        Kabupaten Sumedang, Jawa Barat
+                    </p>
+                    <div class="flex gap-3 pt-2">
+                        <a href="#beranda" aria-label="Instagram" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-amber-400 hover:text-slate-950 flex items-center justify-center transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#beranda" aria-label="YouTube" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-amber-400 hover:text-slate-950 flex items-center justify-center transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#beranda" aria-label="Website" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-amber-400 hover:text-slate-950 flex items-center justify-center transition"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+                <p>&copy; Panitia FASI XIII Tingkat Provinsi Jawa Barat - Kabupaten Sumedang. Seluruh Hak Cipta Dilindungi.</p>
+                <p class="font-semibold text-amber-300/90">Sumedang Simpati • Puseur Budaya Sunda</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // ==========================================
+        // 1. DATA APLIKASI (Lomba, Jadwal, Venue, Wisata, Kuliner)
+        // ==========================================
+
+        const dataLomba = [
+            { nama: "Tartil Al-Qur'an", kategori: ["TKA", "TPA"], peserta: "Putra & Putri (Perorangan)", venue: "Masjid Agung Sumedang", ikon: "fa-book-open", desc: "Lomba membaca Al-Qur'an secara murattal dengan ketepatan tajwid, makhraj, dan irama." },
+            { nama: "Adzan & Iqamah", kategori: ["TKA", "TPA"], peserta: "Putra (Perorangan)", venue: "Masjid Al-Kamil PPS", ikon: "fa-volume-up", desc: "Mengumandangkan adzan dan iqamah dengan suara merdu, lantang, dan penghayatan." },
+            { nama: "Peragaan Sholat", kategori: ["TKA"], peserta: "Beregu (3 Santri)", venue: "Aula Islamic Center", ikon: "fa-praying-hands", desc: "Praktik gerakan dan bacaan sholat fardhu berjamaah sesuai tuntunan sunnah." },
+            { nama: "Cerdas Cermat Al-Qur'an", kategori: ["TKA", "TPA", "TQA"], peserta: "Beregu (3 Santri)", venue: "Gedung Negara Sumedang", ikon: "fa-brain", desc: "Kompetisi ketangkasan wawasan keislaman, ulumul Qur'an, dan sejarah Islam." },
+            { nama: "Mewarnai Gambar", kategori: ["TKA"], peserta: "Putra & Putri (Perorangan)", venue: "GOR Tadjimalela", ikon: "fa-palette", desc: "Mengasah kreativitas estetika islami santri TKA pada media gambar bertema religi." },
+            { nama: "Menggambar Islami", kategori: ["TPA"], peserta: "Putra & Putri (Perorangan)", venue: "GOR Tadjimalela", ikon: "fa-paint-brush", desc: "Ekspresi seni lukis islami bernuansa budaya dan nilai-nilai kebaikan." },
+            { nama: "Kaligrafi Al-Qur'an", kategori: ["TQA"], peserta: "Putra & Putri (Perorangan)", venue: "Pendopo PPS Sumedang", ikon: "fa-pen-nib", desc: "Seni menulis indah ayat suci Al-Qur'an dengan kaidah khat Naskhi/dekorasi." },
+            { nama: "Nasyid Islami", kategori: ["TPA"], peserta: "Beregu (5 Santri)", venue: "Panggung Utama PPS", ikon: "fa-music", desc: "Penampilan vokal grup membawakan lagu-lagu religi edukatif penuh semangat." },
+            { nama: "Ceramah Agama Islam", kategori: ["TKA", "TPA", "TQA"], peserta: "Putra & Putri (Perorangan)", venue: "Aula Tampomas PPS", ikon: "fa-microphone-alt", desc: "Penyampaian dakwah islami yang komunikatif, santun, dan inspiratif." },
+            { nama: "Tahfidz Juz 'Amma", kategori: ["TQA"], peserta: "Putra & Putri (Perorangan)", venue: "Masjid Agung Sumedang", ikon: "fa-quran", desc: "Hafalan surat-surat Juz ke-30 beserta sambung ayat dengan fashahah." },
+            { nama: "Syarhil Qur'an", kategori: ["TQA"], peserta: "Beregu (3 Santri)", venue: "Gedung Negara Sumedang", ikon: "fa-users", desc: "Perpaduan tilawah, terjemah puitis, dan uraian isi kandungan Al-Qur'an." },
+            { nama: "Kisah Islami", kategori: ["TQA"], peserta: "Putra & Putri (Perorangan)", venue: "Aula Islamic Center", ikon: "fa-scroll", desc: "Bercerita kisah keteladanan Nabi, Rasul, dan sahabat dengan ekspresi memukau." }
+        ];
+
+        const dataJadwal = {
+            1: [
+                { waktu: "07.30 – 10.00 WIB", judul: "Registrasi Ulang & Penyambutan Kafilah 27 Kab/Kota", lokasi: "Pusat Pemerintahan Sumedang (PPS)", ket: "Verifikasi berkas peserta dan pembagian ID Card kafilah." },
+                { waktu: "10.00 – 11.30 WIB", judul: "Technical Meeting (TM) Dewan Hakim & Official", lokasi: "Aula Tampomas PPS", ket: "Penjelasan teknis penilaian, pengundian nomor tampil, dan tata tertib." },
+                { waktu: "13.30 – 16.00 WIB", judul: "Upacara Pembukaan (Opening Ceremony) FASI XIII Jabar", lokasi: "Lapangan Upacara PPS Sumedang", ket: "Dihadiri Pj. Gubernur Jabar, Bupati Sumedang, Ketua DPW BKPRMI Jabar, & kesenian khas Sumedang." },
+                { waktu: "19.30 – 21.30 WIB", judul: "Babak Penyisihan Sesi Malam (Tartil & Tahfidz)", lokasi: "Masjid Agung & Islamic Center", ket: "Pelaksanaan babak awal cabang tilawah dan hafalan." }
+            ],
+            2: [
+                { waktu: "07.00 – 09.00 WIB", judul: "Pawai Ta'aruf Akbar Kafilah Se-Jawa Barat", lokasi: "Alun-alun Sumedang – Gedung Negara", ket: "Parade budaya islami dan kostum daerah dari seluruh kontingen kabupaten/kota." },
+                { waktu: "09.30 – 12.00 WIB", judul: "Babak Penyisihan Seluruh Cabang Lomba (Sesi Pagi)", lokasi: "Seluruh Venue Utama (PPS, GOR, Masjid Agung)", ket: "Lomba Mewarnai, Menggambar, Kaligrafi, Adzan, Peragaan Sholat, dan CCQ." },
+                { waktu: "13.00 – 17.00 WIB", judul: "Lanjutan Babak Penyisihan & Semifinal", lokasi: "Seluruh Venue Utama", ket: "Lomba Nasyid Islami, Ceramah Agama, Syarhil Qur'an, dan Kisah Islami." },
+                { waktu: "19.30 – 21.30 WIB", judul: "Malam Silaturahmi & Pentas Seni Budaya Sunda", lokasi: "Pendopo PPS Sumedang", ket: "Ramah tamah pimpinan daerah bersama seluruh ketua DPD BKPRMI." }
+            ],
+            3: [
+                { waktu: "08.00 – 11.30 WIB", judul: "Babak Final Seluruh Kategori (TKA, TPA, TQA)", lokasi: "Venue Utama Masing-masing Cabang", ket: "Penampilan finalis terbaik dari masing-masing cabang perlombaan." },
+                { waktu: "13.00 – 14.30 WIB", judul: "Rapat Pleno Dewan Hakim & Rekapitulasi Nilai", lokasi: "Ruang Rapat Utama PPS", ket: "Penetapan Juara 1, 2, 3, Harapan, serta Juara Umum FASI XIII Jabar." },
+                { waktu: "15.00 – 17.00 WIB", judul: "Pengumuman Pemenang, Penyerahan Piala & Penutupan", lokasi: "Panggung Utama PPS Sumedang", ket: "Penyerahan Piala Bergilir Gubernur Jawa Barat dan pelepasan kafilah." }
+            ]
+        };
+
+        const dataVenue = [
+            {
+                id: "pps",
+                nama: "Pusat Pemerintahan Sumedang (PPS)",
+                sub: "Venue Utama Pembukaan, Penutupan, Nasyid, Kaligrafi & Ceramah",
+                alamat: "Jl. Prabu Gajah Agung No. 9, Situ, Kec. Sumedang Utara",
+                lat: -6.8378,
+                lng: 107.9213,
+                mapsUrl: "https://maps.google.com/?q=-6.8378,107.9213",
+                badge: "Venue Pusat"
+            },
+            {
+                id: "masjid-agung",
+                nama: "Masjid Agung Sumedang",
+                sub: "Venue Cabang Tartil Al-Qur'an & Tahfidz Juz 'Amma",
+                alamat: "Jl. Kaum No. 1, Regol Wetan, Kec. Sumedang Selatan (Barat Alun-alun)",
+                lat: -6.8588,
+                lng: 107.9196,
+                mapsUrl: "https://maps.google.com/?q=-6.8588,107.9196",
+                badge: "Tilawah & Tahfidz"
+            },
+            {
+                id: "gedung-negara",
+                nama: "Gedung Negara & Alun-alun Sumedang",
+                sub: "Titik Start Pawai Ta'aruf, Cerdas Cermat (CCQ) & Syarhil Qur'an",
+                alamat: "Jl. Prabu Geusan Ulun, Regol Wetan, Kec. Sumedang Selatan",
+                lat: -6.8583,
+                lng: 107.9211,
+                mapsUrl: "https://maps.google.com/?q=-6.8583,107.9211",
+                badge: "Pawai & CCQ"
+            },
+            {
+                id: "islamic-center",
+                nama: "Gedung Islamic Center Sumedang",
+                sub: "Posko Utama Kafilah, Peragaan Sholat & Kisah Islami",
+                alamat: "Jl. Kutamaya, Kotakulon, Kec. Sumedang Selatan",
+                lat: -6.8535,
+                lng: 107.9175,
+                mapsUrl: "https://maps.google.com/?q=-6.8535,107.9175",
+                badge: "Posko & Lomba"
+            },
+            {
+                id: "gor-tadjimalela",
+                nama: "GOR Tadjimalela Sumedang",
+                sub: "Venue Cabang Mewarnai (TKA) & Menggambar Islami (TPA)",
+                alamat: "Jl. Pacuan Kuda, Kotakaler, Kec. Sumedang Utara",
+                lat: -6.8465,
+                lng: 107.9235,
+                mapsUrl: "https://maps.google.com/?q=-6.8465,107.9235",
+                badge: "Seni Rupa"
+            }
+        ];
+
+        const dataWisata = [
+            {
+                nama: "Waduk Jatigede (Masjid Al Kamil & Menara Kujang)",
+                kategori: "Alam",
+                jarak: "± 45 Menit dari Kota",
+                jam: "07.00 – 18.00 WIB",
+                deskripsi: "Panorama bendungan raksasa dengan ikon arsitektur Masjid Al Kamil dan Menara Kujang Sapasang karya Ridwan Kamil.",
+                ikon: "fa-water",
+                warna: "from-teal-600 to-cyan-700",
+                mapsUrl: "https://maps.google.com/?q=Masjid+Al+Kamil+Jatigede+Sumedang"
+            },
+            {
+                nama: "Museum Prabu Geusan Ulun & Alun-alun Sumedang",
+                kategori: "Sejarah",
+                jarak: "Pusat Kota (0 Km)",
+                jam: "08.00 – 16.00 WIB",
+                deskripsi: "Menyimpan benda pusaka Kerajaan Sumedang Larang termasuk Mahkota Binokasih, bersebelahan dengan Alun-alun dan Lingga.",
+                ikon: "fa-landmark",
+                warna: "from-amber-600 to-yellow-700",
+                mapsUrl: "https://maps.google.com/?q=Museum+Prabu+Geusan+Ulun+Sumedang"
+            },
+            {
+                nama: "Jans Park (Jatinangor National Flower Park)",
+                kategori: "Keluarga",
+                jarak: "± 35 Menit via Tol Cisumdawu",
+                jam: "08.00 – 17.00 WIB",
+                deskripsi: "Taman bunga tematik megah bergaya kastil negeri dongeng dengan berbagai wahana permainan ramah anak dan keluarga.",
+                ikon: "fa-spa",
+                warna: "from-emerald-600 to-teal-700",
+                mapsUrl: "https://maps.google.com/?q=Jans+Park+Jatinangor+Sumedang"
+            },
+            {
+                nama: "Kampung Karuhun Eco Green Park",
+                kategori: "Keluarga",
+                jarak: "± 20 Menit dari Kota (Citengah)",
+                jam: "08.00 – 17.00 WIB",
+                deskripsi: "Wisata alam tepi sungai Cihonje bernuansa pedesaan Sunda asri, kolam renang, wahana edukasi anak, dan saung kuliner.",
+                ikon: "fa-tree",
+                warna: "from-green-600 to-emerald-800",
+                mapsUrl: "https://maps.google.com/?q=Kampung+Karuhun+Sumedang"
+            },
+            {
+                nama: "Tahura Gunung Kunci & Gunung Tampomas",
+                kategori: "Alam",
+                jarak: "± 5 Menit dari Alun-alun (Gn. Kunci)",
+                jam: "07.30 – 17.00 WIB",
+                deskripsi: "Hutan kota pinus yang sejuk dengan situs benteng bersejarah peninggalan Belanda tepat di jantung kota Sumedang.",
+                ikon: "fa-mountain",
+                warna: "from-emerald-700 to-slate-800",
+                mapsUrl: "https://maps.google.com/?q=Tahura+Gunung+Kunci+Sumedang"
+            },
+            {
+                nama: "Wisata Air Gajah Depa",
+                kategori: "Keluarga",
+                jarak: "± 15 Menit dari Kota (Cimalaka)",
+                jam: "08.00 – 17.00 WIB",
+                deskripsi: "Taman rekreasi air lengkap dengan seluncuran seru, kolam anak, dan area bersantai untuk rombongan santri.",
+                ikon: "fa-swimming-pool",
+                warna: "from-sky-600 to-blue-700",
+                mapsUrl: "https://maps.google.com/?q=Wisata+Air+Gajah+Depa+Sumedang"
+            }
+        ];
+
+        const dataKuliner = [
+            {
+                nama: "Tahu Palasari & Tahu Bungkeng (Sentra Kota)",
+                kategori: "Tahu",
+                menu: "Tahu Sumedang Renyah, Lontong, Sambal Tauco & Oleh-oleh",
+                harga: "Rp 15.000 – Rp 50.000",
+                alamat: "Jl. Mayor Abdurahman & Jl. 11 April, Kota Sumedang",
+                badge: "Wajib Coba • Legendaris",
+                mapsUrl: "https://maps.google.com/?q=Tahu+Palasari+Sumedang"
+            },
+            {
+                nama: "Rumah Makan Joglo Sumedang",
+                kategori: "Sunda",
+                menu: "Nasi Liwet Kastrol, Gurame Bakar, Ayam Kampung & Karedok",
+                harga: "Rp 25.000 – Rp 75.000 / porsi",
+                alamat: "Jl. Raya Serang No. 333, Cimalaka / Akses Kota",
+                badge: "Cocok Rombongan Kafilah",
+                mapsUrl: "https://maps.google.com/?q=Rumah+Makan+Joglo+Sumedang"
+            },
+            {
+                nama: "RM Saung Teko & Saung Cibingbin",
+                kategori: "Sunda",
+                menu: "Paket Nasi Timbel Komplit, Gepuk, Sop Buntut & Sayur Asem",
+                harga: "Rp 25.000 – Rp 65.000 / porsi",
+                alamat: "Jl. Raya Sumedang - Cibeureum / Wilayah Kota",
+                badge: "Lesehan Saung Sunda",
+                mapsUrl: "https://maps.google.com/?q=RM+Saung+Teko+Sumedang"
+            },
+            {
+                nama: "Warung Sate Iting & Sate Khas Kota",
+                kategori: "Sunda",
+                menu: "Sate Kambing Muda Empuk, Sate Sapi, Gule & Tongseng",
+                harga: "Rp 30.000 – Rp 60.000 / porsi",
+                alamat: "Jl. Mayor Abdurahman / Area Pusat Kota Sumedang",
+                badge: "Kuliner Favorit Kota",
+                mapsUrl: "https://maps.google.com/?q=Sate+Iting+Sumedang"
+            },
+            {
+                nama: "Soto Bongko & Mie Kocok Sumedang",
+                kategori: "Sunda",
+                menu: "Soto Bongko Lontong Daun, Mie Kocok Kaki Sapi & Es Cendol",
+                harga: "Rp 15.000 – Rp 28.000 / porsi",
+                alamat: "Sekitar Alun-alun & Jl. Tampomas, Kota Sumedang",
+                badge: "Khas Pagi & Siang",
+                mapsUrl: "https://maps.google.com/?q=Soto+Bongko+Sumedang"
+            },
+            {
+                nama: "Kafe & Kedai Kopi Area Alun-alun & Geusan Ulun",
+                kategori: "Kafe",
+                menu: "Kopi Buhun Sumedang, Croffle, Rice Bowl & Aneka Minuman Segar",
+                harga: "Rp 18.000 – Rp 40.000",
+                alamat: "Jl. Prabu Geusan Ulun & Jl. Mayor Abdurahman",
+                badge: "Tempat Istirahat Official",
+                mapsUrl: "https://maps.google.com/?q=Cafe+Jl+Prabu+Geusan+Ulun+Sumedang"
+            }
+        ];
+
+        // ==========================================
+        // 2. RENDER FUNCTIONS & INTERAKTIVITAS
+        // ==========================================
+
+        let currentActiveVenue = dataVenue[0];
+
+        // Render Cabang Lomba
+        function renderLomba(filter = 'semua') {
+            const grid = document.getElementById('lomba-grid');
+            const filtered = filter === 'semua' 
+                ? dataLomba 
+                : dataLomba.filter(item => item.kategori.includes(filter));
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between gap-4">
+                    <div class="space-y-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg shrink-0">
+                                <i class="fas ${item.ikon}"></i>
+                            </div>
+                            <div class="flex flex-wrap gap-1 justify-end">
+                                ${item.kategori.map(kat => {
+                                    const badgeColor = kat === 'TKA' ? 'bg-amber-100 text-amber-800' : (kat === 'TPA' ? 'bg-blue-100 text-blue-800' : 'bg-sky-100 text-sky-800');
+                                    return `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${badgeColor}">${kat}</span>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-slate-900 text-lg">${item.nama}</h3>
+                            <p class="text-xs font-semibold text-sky-700 mt-0.5"><i class="fas fa-user-friends mr-1"></i> ${item.peserta}</p>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">${item.desc}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 font-medium"><i class="fas fa-map-marker-alt text-blue-600 mr-1"></i> ${item.venue}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterLomba(kategori) {
+            document.querySelectorAll('.lomba-tab').forEach(btn => {
+                btn.classList.remove('bg-blue-700', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            });
+            event.currentTarget.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            event.currentTarget.classList.add('bg-blue-700', 'text-white', 'shadow-sm');
+            renderLomba(kategori);
+        }
+
+        // Render Jadwal Acara
+        function selectScheduleDay(day) {
+            [1, 2, 3].forEach(d => {
+                const btn = document.getElementById(`day-btn-${d}`);
+                if (d === day) {
+                    btn.className = "day-tab p-3 sm:p-4 rounded-2xl bg-amber-400 text-slate-950 font-extrabold text-center shadow-lg transition";
+                } else {
+                    btn.className = "day-tab p-3 sm:p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-center border border-white/15 transition";
+                }
+            });
+
+            const container = document.getElementById('schedule-content');
+            const items = dataJadwal[day];
+            container.innerHTML = items.map((item, idx) => `
+                <div class="flex flex-col sm:flex-row gap-4 ${idx !== items.length - 1 ? 'pb-6 border-b border-slate-100' : ''}">
+                    <div class="sm:w-48 shrink-0">
+                        <span class="inline-block px-3 py-1.5 rounded-xl bg-blue-50 text-blue-800 font-bold text-xs sm:text-sm border border-blue-200">
+                            <i class="far fa-clock mr-1"></i> ${item.waktu}
+                        </span>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="font-extrabold text-slate-900 text-base sm:text-lg">${item.judul}</h4>
+                        <p class="text-xs font-bold text-sky-700"><i class="fas fa-map-marker-alt mr-1"></i> ${item.lokasi}</p>
+                        <p class="text-sm text-slate-600">${item.ket}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Venue & Map Control
+        function renderVenues() {
+            const list = document.getElementById('venue-list');
+            list.innerHTML = dataVenue.map((v, idx) => `
+                <div id="venue-card-${v.id}" onclick="selectVenue('${v.id}')" 
+                     class="cursor-pointer rounded-3xl p-5 border-2 transition ${idx === 0 ? 'bg-blue-50/70 border-blue-600 shadow-md' : 'bg-white border-slate-200 hover:border-blue-300'}">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="space-y-1">
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-100 text-sky-800">${v.badge}</span>
+                            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">${v.nama}</h3>
+                            <p class="text-xs sm:text-sm font-semibold text-blue-800">${v.sub}</p>
+                            <p class="text-xs text-slate-500 pt-1"><i class="fas fa-map-pin mr-1"></i> ${v.alamat}</p>
+                        </div>
+                        <div class="flex flex-col gap-2 shrink-0">
+                            <a href="${v.mapsUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"
+                               class="px-3 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold text-center transition">
+                                <i class="fas fa-directions mr-1"></i> Rute
+                            </a>
+                            <button onclick="event.stopPropagation(); copyText('${v.lat}, ${v.lng}', 'Koordinat ${v.nama} berhasil disalin!')"
+                                    class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition">
+                                <i class="far fa-copy mr-1"></i> Koordinat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectVenue(id) {
+            const venue = dataVenue.find(v => v.id === id);
+            if (!venue) return;
+            currentActiveVenue = venue;
+
+            // Update card highlight
+            dataVenue.forEach(v => {
+                const el = document.getElementById(`venue-card-${v.id}`);
+                if (v.id === id) {
+                    el.className = "cursor-pointer rounded-3xl p-5 border-2 transition bg-blue-50/70 border-blue-600 shadow-md";
+                } else {
+                    el.className = "cursor-pointer rounded-3xl p-5 border-2 transition bg-white border-slate-200 hover:border-blue-300";
+                }
+            });
+
+            // Update Map Iframe & Info
+            document.getElementById('active-map-title').textContent = venue.nama;
+            document.getElementById('active-map-address').innerHTML = `<i class="fas fa-map-pin text-blue-600 mr-1"></i> ${venue.alamat}`;
+            document.getElementById('active-map-external').href = venue.mapsUrl;
+            document.getElementById('venue-map-iframe').src = `https://maps.google.com/maps?q=${venue.lat},${venue.lng}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+        }
+
+        function copyActiveCoordinates() {
+            copyText(`${currentActiveVenue.lat}, ${currentActiveVenue.lng}`, `Koordinat ${currentActiveVenue.nama} disalin!`);
+        }
+
+        // Render Wisata Sumedang
+        function renderWisata(filter = 'semua') {
+            const grid = document.getElementById('wisata-grid');
+            const filtered = filter === 'semua' ? dataWisata : dataWisata.filter(w => w.kategori === filter);
+
+            grid.innerHTML = filtered.map(w => `
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+                    <div>
+                        <div class="h-36 bg-gradient-to-br ${w.warna} p-6 flex flex-col justify-between text-white relative overflow-hidden">
+                            <i class="fas ${w.ikon} absolute -right-4 -bottom-4 text-8xl text-white/15"></i>
+                            <div class="flex justify-between items-center relative z-10">
+                                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-bold">${w.kategori}</span>
+                                <span class="text-xs font-semibold bg-black/25 px-2.5 py-1 rounded-lg"><i class="far fa-clock mr-1"></i> ${w.jam}</span>
+                            </div>
+                            <h3 class="font-extrabold text-lg leading-snug relative z-10">${w.nama}</h3>
+                        </div>
+                        <div class="p-5 space-y-3">
+                            <p class="text-xs font-bold text-sky-700"><i class="fas fa-route mr-1"></i> ${w.jarak}</p>
+                            <p class="text-sm text-slate-600 leading-relaxed">${w.deskripsi}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5">
+                        <a href="${w.mapsUrl}" target="_blank" rel="noopener noreferrer" 
+                           class="w-full py-2.5 px-4 rounded-xl bg-sky-50 hover:bg-sky-600 text-sky-800 hover:text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Buka di Google Maps</span>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterWisata(kategori) {
+            document.querySelectorAll('.wisata-tab').forEach(btn => {
+                btn.classList.remove('bg-sky-700', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            });
+            event.currentTarget.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            event.currentTarget.classList.add('bg-sky-700', 'text-white', 'shadow-sm');
+            renderWisata(kategori);
+        }
+
+        // Render Kuliner Kota Sumedang
+        function renderKuliner(filter = 'semua') {
+            const grid = document.getElementById('kuliner-grid');
+            const filtered = filter === 'semua' ? dataKuliner : dataKuliner.filter(k => k.kategori === filter);
+
+            grid.innerHTML = filtered.map(k => `
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-300 transition flex flex-col justify-between gap-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold">${k.badge}</span>
+                            <span class="text-xs font-bold text-emerald-700">${k.harga}</span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">${k.nama}</h3>
+                        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                            <p class="text-[11px] uppercase font-bold text-slate-400">Menu Andalan</p>
+                            <p class="text-xs sm:text-sm font-semibold text-slate-700 mt-0.5">${k.menu}</p>
+                        </div>
+                        <p class="text-xs text-slate-500"><i class="fas fa-map-marker-alt text-amber-600 mr-1"></i> ${k.alamat}</p>
+                    </div>
+                    <a href="${k.mapsUrl}" target="_blank" rel="noopener noreferrer" 
+                       class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition">
+                        <i class="fas fa-location-arrow"></i>
+                        <span>Petunjuk Arah Maps</span>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function filterKuliner(kategori) {
+            document.querySelectorAll('.kuliner-tab').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            });
+            event.currentTarget.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            event.currentTarget.classList.add('bg-amber-600', 'text-white', 'shadow-sm');
+            renderKuliner(kategori);
+        }
+
+        // ==========================================
+        // 3. COUNTDOWN TIMER KE 19 DESEMBER 2026
+        // ==========================================
+        function updateCountdown() {
+            const now = new Date();
+            const eventStart = new Date('2026-12-19T07:30:00+07:00');
+            const diff = eventStart - now;
+
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent = "00";
+                document.getElementById('cd-hours').textContent = "00";
+                document.getElementById('cd-minutes').textContent = "00";
+                document.getElementById('cd-seconds').textContent = "00";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // ==========================================
+        // 4. UTILITAS (Clipboard, Toast, Mobile Menu, Global Search)
+        // ==========================================
+        function copyText(text, message) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                showToast(message || 'Teks berhasil disalin!');
+            } catch (err) {
+                showToast('Gagal menyalin teks.');
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Quick Search Modal
+        function toggleSearchModal() {
+            const modal = document.getElementById('search-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('global-search-input').focus();
+            }
+        }
+
+        document.getElementById('global-search-input').addEventListener('input', function(e) {
+            const q = e.target.value.toLowerCase().trim();
+            const container = document.getElementById('search-results-container');
+
+            if (!q) {
+                container.innerHTML = `<p class="text-sm text-slate-500 text-center py-6">Ketik kata kunci seperti <strong>"Tartil"</strong>, <strong>"PPS"</strong>, <strong>"Tahu"</strong>, atau <strong>"Jatigede"</strong>...</p>`;
+                return;
+            }
+
+            let results = [];
+            dataLomba.forEach(l => {
+                if (l.nama.toLowerCase().includes(q) || l.venue.toLowerCase().includes(q)) {
+                    results.push({ type: 'Cabang Lomba', title: l.nama, sub: `${l.kategori.join(', ')} • ${l.venue}`, link: '#tentang' });
+                }
+            });
+            dataVenue.forEach(v => {
+                if (v.nama.toLowerCase().includes(q) || v.sub.toLowerCase().includes(q)) {
+                    results.push({ type: 'Lokasi Venue', title: v.nama, sub: v.alamat, link: '#venue' });
+                }
+            });
+            dataWisata.forEach(w => {
+                if (w.nama.toLowerCase().includes(q) || w.deskripsi.toLowerCase().includes(q)) {
+                    results.push({ type: 'Wisata Sumedang', title: w.nama, sub: w.jarak, link: '#wisata' });
+                }
+            });
+            dataKuliner.forEach(k => {
+                if (k.nama.toLowerCase().includes(q) || k.menu.toLowerCase().includes(q)) {
+                    results.push({ type: 'Kuliner Kota', title: k.nama, sub: k.menu, link: '#kuliner' });
+                }
+            });
+
+            if (results.length === 0) {
+                container.innerHTML = `<p class="text-sm text-slate-500 text-center py-6">Tidak ditemukan hasil untuk "<strong>${e.target.value}</strong>".</p>`;
+                return;
+            }
+
+            container.innerHTML = results.map(r => `
+                <a href="${r.link}" onclick="toggleSearchModal()" class="block p-3.5 rounded-2xl hover:bg-emerald-50 border border-transparent hover:border-emerald-200 transition">
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">${r.type}</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1">${r.title}</h4>
+                    <p class="text-xs text-slate-500">${r.sub}</p>
+                </a>
+            `).join('');
+        });
+
+        // Inisialisasi saat halaman dimuat
+        window.onload = function() {
+            renderLomba('semua');
+            selectScheduleDay(1);
+            renderVenues();
+            renderWisata('semua');
+            renderKuliner('semua');
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        };
+    </script>
+</body>
+</html>
